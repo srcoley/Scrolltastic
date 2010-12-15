@@ -1,0 +1,38 @@
+<html>
+
+	<head>
+		<script src="jquery.js"></script>
+		<script src="jquery.scrolltastic.js"></script>
+		<script src="jquery.mousewheel.min.js"></script>
+		<script src="jquery.timoutintervalidle.js"></script>
+		<script>
+			$(function(){
+				$("#content").scrolltastic({
+					up: "up",
+					down: "down"
+				});
+			});
+		</script>
+
+		<style>
+			#wrapper {
+				width: 100px;
+				height: 100px;
+				overflow: hidden;
+			}
+
+			#content {
+				width: 100px;
+				position: relative;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ipsum ut nisi consequat vel euismod orci elementum. Nunc consectetur rhoncus est. Ut congue ornare risus a placerat. Suspendisse nec suscipit nisi. Pellentesque id est porttitor elit tincidunt vehicula. Vestibulum euismod leo et lorem posuere at tempor magna consequat. Pellentesque a lacus turpis, at ornare orci. Aliquam at enim eu eros pulvinar scelerisque. Vivamus eget libero eu lacus convallis mattis. Ut sit amet neque tellus, vitae lacinia urna. In hac habitasse platea dictumst. Vivamus nec neque vitae odio aliquam sagittis. Donec ut urna odio, vitae feugiat lorem. Vivamus molestie massa bibendum tortor tincidunt ut aliquet nibh mattis. Integer convallis, felis sit amet tristique gravida, purus nulla sodales diam, sed egestas nisi metus non dui. Sed ipsum tortor, congue eu gravida a, tincidunt auctor orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+		</div>
+		<a href="#" id="up">Up</a> | <a href="#" id="down">Down</a>
+	</body>
+
+</html>

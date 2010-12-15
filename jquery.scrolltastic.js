@@ -1,5 +1,5 @@
 /*
- * jQuery Scrolltastic plugin 1.0
+ * jQuery Scrolltastic plugin 1.1
  * 
  * Copyright (c) 2010 Stephen Coley, DK New Media
  *
@@ -19,12 +19,15 @@
  *
  */
 
+
 (function($){  
 	$.fn.scrolltastic = function(options) {
+		var timer;
+		var mouseWheelActive;
 		var defaults = {
 			up: null,
 			down: null,
-			duration: 1000
+			duration: "auto"
 		};  
 		var options = $.extend(defaults, options);
 		
@@ -35,9 +38,6 @@
 			var elem = this;
 			
 			var content = $(elem);
-			if(content.css("position") == "static") {
-				content.css("position", "relative");
-			}
 			var wrapper = content.parent();
 			if(wrapper.css("position") == "static") {
 				wrapper.css("position", "relative");
@@ -45,90 +45,75 @@
 			var wrapperHeight = wrapper.height();
 			var contentHeight = content.height();
 		
-			var sections = Math.floor(contentHeight/wrapperHeight);
-			var sectionR = contentHeight%wrapperHeight;
-		
-			var i = 0;
-			var positions = [];
-			while(i < sections) {
-				if(i == 0) {
-					positions[i] = content.position().top;
-				} else {
-					positions[i] = wrapperHeight * -i; 
-				}
-				i++;
-			}
-		
-			if(sectionR != 0) {
-				var nextI = positions.length;
-				positions[nextI] = positions[nextI - 1] - sectionR;
-			}
-		
-			$("#" + options.up).click(function() {
-			    scrollUp(content, positions);
-				 return false;
+			$("#" + options.up).mousedown(function() {
+				upMouseDown();
+			});
+
+			$("#" + options.up).mouseup(function() {
+				mouseUp();
 			});
 		
-			$("#" + options.down).click(function() {
-				scrollDown(content, positions);
+			$("#" + options.down).mousedown(function() {
+				downMouseDown();
+			});
+
+			$("#" + options.down).mouseup(function() {
+				mouseUp();
+			});
+
+			content.mousewheel(function(event, delta, deltaX, deltaY) {
+				if(mouseWheelActive == null) {
+					$.clear(timer);
+					if(delta > 0) {
+						upMouseDown(content);
+					} else {
+						downMouseDown(content);
+					}
+					$.timeout(mouseUp, 100);
+					mouseWheelActive = true;
+				}
 				return false;
 			});
-		
-			if(content.position().top == positions[0]) {
-				$("#" + options.up).hide();
+
+		}
+
+		function upMouseDown() {
+			if(options.duration == "auto") {
+				var dis = $(content).position().top * -1;
+				var dur = dis * 3;
 			}
+			console.log(dis + ":" + dur);
+			$(content).stop().animate({
+				top: "0px"
+			}, dur, "linear");
 		}
 		
-		function scrollUp(content, positions) {
-			var pos = content.position().top;
-			var x;
-			for(x in positions) {
-				if(positions[x] == pos) {
-					break;
-				}
+		function downMouseDown() {
+			if(options.duration == "auto") {
+				var dis = ($(content).position().top + contentHeight) - wrapperHeight;
+				var dur = dis * 3;
 			}
-			if(x == 0 || x < 0) {
-				$("#" + options.up).hide();
+			console.log(dis + ":" + dur);
+			$(content).stop().animate({
+				top: (contentHeight - wrapperHeight) * -1
+			}, dur, "linear");
+		}
+
+		function mouseUp() {
+			content.stop();
+			var top = $(content).position().top;
+			if(top * -1 == contentHeight - wrapperHeight) {
+				$("#" + options.down).hide();
 			} else {
 				$("#" + options.down).show();
-				x--;
-				content.animate({
-					top: positions[x] + "px"
-				}, options.duration);
 			}
-			
-			if(x == 0) {
+			if(top == 0) {
 				$("#" + options.up).hide();
-			}
-			
-			return false;
-		}
-		
-		function scrollDown(content, positions) {
-			var pos = content.position().top;
-			var x;
-			for(x in positions) {
-				if(positions[x] == pos) {
-					break;
-				}
-			}
-			var lastIndex = positions.length - 1;
-			if(x == lastIndex || x > lastIndex) {
-				$("#" + options.down).hide();
 			} else {
 				$("#" + options.up).show();
-				x++;
-				content.animate({
-					top: positions[x] + "px"
-				}, options.duration);
 			}
-			
-			if(x == lastIndex) {
-				$("#" + options.down).hide();
-			}
-			
-			return false;
+			mouseWheelActive = null;
 		}
-		
+
 	};
 })(jQuery);
