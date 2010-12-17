@@ -11,28 +11,126 @@
 					up: "up",
 					down: "down"
 				});
+
+				$('img').load(function(){
+					$("#content2").scrolltastic({
+						up: "up2",
+						down: "down2"
+					});
+				});
+
+				$("#content3").scrolltastic();
 			});
 		</script>
 
 		<style>
+
+			pre {
+				width: 300px;
+				padding: 10px;
+				background: #ccc;
+			}
+
 			#wrapper {
-				width: 100px;
-				height: 100px;
+				width: 200px;
+				height: 200px;
 				overflow: hidden;
+				border: 1px solid #000;
 			}
 
 			#content {
-				width: 100px;
+				width: 200px;
+				position: relative;
+			}
+
+			#wrapper2 {
+				width: 500px;
+				height: 500px;
+				overflow: hidden;
+				border: 1px solid #000;
+			}
+
+			#content2 {
+				width: 500px;
+				position: relative;
+			}
+
+			#content2 p {
+				margin: 0px;
+			}
+
+			#wrapper3 {
+				width: 500px;
+				height: 500px;
+				overflow: hidden;
+				border: 1px solid #000;
+			}
+
+			#content3 {
+				width: 500px;
 				position: relative;
 			}
 
 		</style>
 	</head>
 	<body>
+		<h1>Scrolltastic jQuery Plugin</h1>
+		<p>Scrolltastic lets you add scrolling functionality to an element with "overflow: hidden;" applied. With Scrolltastic, you can scroll by setting an "up" and "down" anchor, or by using the mouse wheel on that specific element.</p>
+		<h2>License</h2>
+		<p>This plugin is under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT license</a></p>
+		<h2>Download</h2>
+			<p><a href="https://github.com/srcoley/Scrolltastic/zipball/master">Download Latest</a></p>
+			<p>-OR-</p>
+			<p>You can pull the latest development version using git: git clone git://github.com/srcoley/Scrolltastic.git</p>
+		<h2>Requirements</h2>
+		<ul>
+			<li><a href="http://jquery.com">jQuery</a>(duh)</li>
+			<li><a href="http://plugins.jquery.com/project/mousewheel">jQuery Mousewheel Plugin</a></li>
+			<li><a href="http://code.google.com/p/timeout-interval-idle/downloads/list">jQuery Timeout Interval Idle Plugin</a></li>
+		</ul>
+		<h2>Example 1</h2>
+		<p>Bare bones example. Use the mouse wheel to scroll or click & hold the "Up" or "Down" link to scroll, let go when you want to stop scrolling. </p>
+		<pre>
+$("#content").scrolltastic({
+	up: "up",
+	down: "down"
+});
+		</pre>
 		<div id="wrapper">
 			<div id="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ipsum ut nisi consequat vel euismod orci elementum. Nunc consectetur rhoncus est. Ut congue ornare risus a placerat. Suspendisse nec suscipit nisi. Pellentesque id est porttitor elit tincidunt vehicula. Vestibulum euismod leo et lorem posuere at tempor magna consequat. Pellentesque a lacus turpis, at ornare orci. Aliquam at enim eu eros pulvinar scelerisque. Vivamus eget libero eu lacus convallis mattis. Ut sit amet neque tellus, vitae lacinia urna. In hac habitasse platea dictumst. Vivamus nec neque vitae odio aliquam sagittis. Donec ut urna odio, vitae feugiat lorem. Vivamus molestie massa bibendum tortor tincidunt ut aliquet nibh mattis. Integer convallis, felis sit amet tristique gravida, purus nulla sodales diam, sed egestas nisi metus non dui. Sed ipsum tortor, congue eu gravida a, tincidunt auctor orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
 		</div>
 		<a href="#" id="up">Up</a> | <a href="#" id="down">Down</a>
+		<h2>Example 2</h2>
+		<p>This example shows you how versatile Scrolltastic is. Even with images and varying marings, it still works. *It does not play nice with padding though*</p>
+		<pre>
+/*
+ *
+ * If images are present in the div
+ * you MUST wrap the Scrolltastic
+ * code in this $('img').load function
+ *
+ * You just gotta
+ *
+ */
+$('img').load(function(){
+	$("#content2").scrolltastic({
+		up: "up2",
+		down: "down2"
+	});
+});
+		</pre>
+		<div id="wrapper2">
+			<div id="content2"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ipsum ut nisi consequat vel euismod orci elementum. Nunc consectetur rhoncus est. Ut congue ornare risus a placerat. Suspendisse nec suscipit nisi. Pellentesque id est porttitor elit tincidunt vehicula. Vestibulum euismod leo et lorem posuere at tempor magna consequat. Pellentesque a lacus turpis, at ornare orci. Aliquam at enim eu eros pulvinar scelerisque.</p> <p style="margin: 10px 0 0 0;">Vivamus eget libero eu lacus convallis mattis. Ut sit amet neque tellus, vitae lacinia urna. In hac habitasse platea dictumst. Vivamus nec neque vitae odio aliquam sagittis. Donec ut urna odio, vitae feugiat lorem. <img src="jquery.png" align="left" /> Vivamus molestie massa bibendum tortor tincidunt ut aliquet nibh mattis. Integer convallis, felis sit amet tristique gravida, purus nulla sodales diam, sed egestas nisi metus non dui. Sed ipsum tortor, congue eu gravida a, tincidunt auctor orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ipsum ut nisi consequat vel euismod orci elementum. Nunc consectetur rhoncus est. Ut congue ornare risus a placerat. Suspendisse nec suscipit nisi. Pellentesque id est porttitor elit tincidunt vehicula. Vestibulum euismod leo et lorem posuere at tempor magna consequat. Pellentesque a lacus turpis, at ornare orci. Aliquam at enim eu eros pulvinar scelerisque. Vivamus eget libero eu lacus convallis mattis.</p> <p style="margin: 30px 0 0 0;">Ut sit amet neque tellus, vitae lacinia urna. In hac habitasse platea dictumst. Vivamus nec neque vitae odio aliquam sagittis. Donec ut urna odio, vitae feugiat lorem. Vivamus molestie massa bibendum tortor tincidunt ut aliquet nibh mattis. Integer convallis, felis sit amet tristique gravida, purus nulla sodales diam, sed egestas nisi metus non dui. Sed ipsum tortor, congue eu gravida a, tincidunt auctor orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ipsum ut nisi consequat vel euismod orci elementum. Nunc consectetur rhoncus est. Ut congue ornare risus a placerat. Suspendisse nec suscipit nisi. Pellentesque id est porttitor elit tincidunt vehicula. Vestibulum euismod leo et lorem posuere at tempor magna consequat. Pellentesque a lacus turpis, at ornare orci. Aliquam at enim eu eros pulvinar scelerisque. Vivamus eget libero eu lacus convallis mattis. Ut sit amet neque tellus, vitae lacinia urna.</p> <p>In hac habitasse platea dictumst. Vivamus nec neque vitae odio aliquam sagittis. Donec ut urna odio, vitae feugiat lorem. Vivamus molestie massa bibendum tortor tincidunt ut aliquet nibh mattis. Integer convallis, felis sit amet tristique gravida, purus nulla sodales diam, sed egestas nisi metus non dui. Sed ipsum tortor, congue eu gravida a, tincidunt auctor orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ipsum ut nisi consequat vel euismod orci elementum. Nunc consectetur rhoncus est. Ut congue ornare risus a placerat. Suspendisse nec suscipit nisi. Pellentesque id est porttitor elit tincidunt vehicula. Vestibulum euismod leo et lorem posuere at tempor magna consequat. Pellentesque a lacus turpis, at ornare orci. Aliquam at enim eu eros pulvinar scelerisque. Vivamus eget libero eu lacus convallis mattis. Ut sit amet neque tellus, vitae lacinia urna. In hac habitasse platea dictumst. Vivamus nec neque vitae odio aliquam sagittis. Donec ut urna odio, vitae feugiat lorem. Vivamus molestie massa bibendum tortor tincidunt ut aliquet nibh mattis. Integer convallis, felis sit amet tristique gravida, purus nulla sodales diam, sed egestas nisi metus non dui. Sed ipsum tortor, congue eu gravida a, tincidunt auctor orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
+		</div>
+		<a href="#" id="up2">Up</a> | <a href="#" id="down2">Down</a>
+		<h2>Example 3</h2>
+		<p>This example shows the use of Scrolltastic without the anchors. It uses the mouse wheel only.</p>
+		<pre>
+$("#content3").scrolltastic();
+		</pre>
+		<div id="wrapper3">
+			<div id="content3"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ipsum ut nisi consequat vel euismod orci elementum. Nunc consectetur rhoncus est. Ut congue ornare risus a placerat. Suspendisse nec suscipit nisi. Pellentesque id est porttitor elit tincidunt vehicula. Vestibulum euismod leo et lorem posuere at tempor magna consequat. Pellentesque a lacus turpis, at ornare orci. Aliquam at enim eu eros pulvinar scelerisque.</p> <p>Vivamus eget libero eu lacus convallis mattis. Ut sit amet neque tellus, vitae lacinia urna. In hac habitasse platea dictumst. Vivamus nec neque vitae odio aliquam sagittis. Donec ut urna odio, vitae feugiat lorem. Vivamus molestie massa bibendum tortor tincidunt ut aliquet nibh mattis. Integer convallis, felis sit amet tristique gravida, purus nulla sodales diam, sed egestas nisi metus non dui. Sed ipsum tortor, congue eu gravida a, tincidunt auctor orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ipsum ut nisi consequat vel euismod orci elementum. Nunc consectetur rhoncus est. Ut congue ornare risus a placerat. Suspendisse nec suscipit nisi. Pellentesque id est porttitor elit tincidunt vehicula. Vestibulum euismod leo et lorem posuere at tempor magna consequat. Pellentesque a lacus turpis, at ornare orci. Aliquam at enim eu eros pulvinar scelerisque. Vivamus eget libero eu lacus convallis mattis.</p> <p>Ut sit amet neque tellus, vitae lacinia urna. In hac habitasse platea dictumst. Vivamus nec neque vitae odio aliquam sagittis. Donec ut urna odio, vitae feugiat lorem. Vivamus molestie massa bibendum tortor tincidunt ut aliquet nibh mattis. Integer convallis, felis sit amet tristique gravida, purus nulla sodales diam, sed egestas nisi metus non dui. Sed ipsum tortor, congue eu gravida a, tincidunt auctor orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ipsum ut nisi consequat vel euismod orci elementum. Nunc consectetur rhoncus est. Ut congue ornare risus a placerat. Suspendisse nec suscipit nisi. Pellentesque id est porttitor elit tincidunt vehicula. Vestibulum euismod leo et lorem posuere at tempor magna consequat. Pellentesque a lacus turpis, at ornare orci. Aliquam at enim eu eros pulvinar scelerisque. Vivamus eget libero eu lacus convallis mattis. Ut sit amet neque tellus, vitae lacinia urna.</p> <p>In hac habitasse platea dictumst. Vivamus nec neque vitae odio aliquam sagittis. Donec ut urna odio, vitae feugiat lorem. Vivamus molestie massa bibendum tortor tincidunt ut aliquet nibh mattis. Integer convallis, felis sit amet tristique gravida, purus nulla sodales diam, sed egestas nisi metus non dui. Sed ipsum tortor, congue eu gravida a, tincidunt auctor orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras iaculis ipsum ut nisi consequat vel euismod orci elementum. Nunc consectetur rhoncus est. Ut congue ornare risus a placerat. Suspendisse nec suscipit nisi. Pellentesque id est porttitor elit tincidunt vehicula. Vestibulum euismod leo et lorem posuere at tempor magna consequat. Pellentesque a lacus turpis, at ornare orci. Aliquam at enim eu eros pulvinar scelerisque. Vivamus eget libero eu lacus convallis mattis. Ut sit amet neque tellus, vitae lacinia urna. In hac habitasse platea dictumst. Vivamus nec neque vitae odio aliquam sagittis. Donec ut urna odio, vitae feugiat lorem. Vivamus molestie massa bibendum tortor tincidunt ut aliquet nibh mattis. Integer convallis, felis sit amet tristique gravida, purus nulla sodales diam, sed egestas nisi metus non dui. Sed ipsum tortor, congue eu gravida a, tincidunt auctor orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
+		</div>
 	</body>
 
 </html>
