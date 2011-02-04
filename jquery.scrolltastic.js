@@ -59,10 +59,12 @@
 
 				options.up.bind(event, function() {
 					upMouseDown();
+					return false;
 				});
 
 				options.down.bind(event, function() {
 					downMouseDown();
+					return false;
 				});
 
 			});
@@ -75,11 +77,11 @@
 				});
 			});
 
-			options.down.click(function(){
+			$(options.down).click(function(){
 				return false;
 			});
 
-			options.down.click(function(){
+			$(options.up).click(function(){
 				return false;
 			});
 
