@@ -8,14 +8,14 @@
 		<script>
 			$(function(){
 				$("#content").scrolltastic({
-					up: "up",
-					down: "down"
+					up: $("#up"),
+					down: $("#down")
 				});
 
 				$('img').load(function(){
 					$("#content2").scrolltastic({
-						up: "up2",
-						down: "down2"
+						up: $("#up2"),
+						down: $("#down2")
 					});
 				});
 
@@ -92,8 +92,8 @@
 		<p>Bare bones example. Use the mouse wheel to scroll or click & hold the "Up" or "Down" link to scroll, let go when you want to stop scrolling. </p>
 		<pre>
 $("#content").scrolltastic({
-	up: "up",
-	down: "down"
+	up: $("up"),
+	down: $("#down")
 });
 		</pre>
 		<div id="wrapper">
@@ -114,8 +114,8 @@ $("#content").scrolltastic({
  */
 $('img').load(function(){
 	$("#content2").scrolltastic({
-		up: "up2",
-		down: "down2"
+		up: $("#up2"),
+		down: $("#down2")
 	});
 });
 		</pre>
@@ -134,3 +134,4 @@ $("#content3").scrolltastic();
 	</body>
 
 </html>
+

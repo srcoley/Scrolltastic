@@ -1,6 +1,6 @@
 /*
  * jQuery Scrolltastic plugin 1.1
- * 
+ *
  * Copyright (c) 2010 Stephen Coley, DK New Media
  *
  * Licensed under MIT
@@ -11,7 +11,7 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
@@ -20,7 +20,7 @@
  */
 
 
-(function($){  
+(function($){
 	$.fn.scrolltastic = function(options) {
 		var anchors;
 		var timer;
@@ -28,12 +28,13 @@
 		var defaults = {
 			up: null,
 			down: null,
-			duration: "auto"
-		};  
+			duration: "auto",
+			autohide: false
+		};
 		var options = $.extend(defaults, options);
-			
+
 		var elem = this;
-		
+
 		var content = $(elem);
 		var wrapper = content.parent();
 		if(wrapper.css("position") == "static") {
@@ -41,7 +42,7 @@
 		}
 		var wrapperHeight = wrapper.height();
 		var contentHeight = content.height();
-	
+
 		content.children(":last-child").each(function(){
 			if($(this).css("margin-top") != "") {
 				var margin = $(this).css("margin-top");
@@ -53,25 +54,35 @@
 		if((options.up != null && options.down == null) || (options.up == null && options.down != null)) {
 			alert('Scrolltastic: If you\'re going to assign anchors, you MUST asign both "up" and "down" anchors. Not just one of them.');
 		} else if(options.up != null && options.down != null) {
-			$("#" + options.up).mousedown(function() {
-				upMouseDown();
+
+			$.each(["mousedown", "touchstart"], function(j, event) {
+
+				options.up.bind(event, function() {
+					upMouseDown();
+				});
+
+				options.down.bind(event, function() {
+					downMouseDown();
+				});
+
 			});
 
-			$("#" + options.up).mouseup(function() {
-				mouseUp();
-			});
-		
-			$("#" + options.down).mousedown(function() {
-				downMouseDown();
-			});
-
-			$("#" + options.down).mouseup(function() {
-				mouseUp();
+			$.each([options.up, options.down], function(i, button) {
+				$.each(["mouseup", "touchend"], function(j, event) {
+					button.bind(event, function() {
+						mouseUp();
+					});
+				});
 			});
 
-			$("#" + options.down + ", #" + options.up).click(function(){
+			options.down.click(function(){
 				return false;
 			});
+
+			options.down.click(function(){
+				return false;
+			});
+
 			anchors = true;
 		} else {
 			anchors = false;
@@ -100,7 +111,7 @@
 				top: "0px"
 			}, dur, "linear");
 		}
-		
+
 		function downMouseDown() {
 			if(options.duration == "auto") {
 				var dis = ($(content).position().top + contentHeight) - wrapperHeight;
@@ -115,15 +126,15 @@
 			content.stop();
 			var top = $(content).position().top;
 			if(anchors) {
-				if(top * -1 == contentHeight - wrapperHeight) {
-					$("#" + options.down).hide();
+				if(top * -1 == contentHeight - wrapperHeight && options.autohide == true) {
+					options.down.hide();
 				} else {
-					$("#" + options.down).show();
+					options.down.show();
 				}
-				if(top == 0) {
-					$("#" + options.up).hide();
+				if(top == 0 && options.autohide == true) {
+					options.up.hide();
 				} else {
-					$("#" + options.up).show();
+					options.up.show();
 				}
 			}
 			mouseWheelActive = null;
@@ -131,3 +142,4 @@
 
 	};
 })(jQuery);
+
